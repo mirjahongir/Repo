@@ -7,7 +7,7 @@ using Repo;
 namespace EntityRepository
 {
     public class EntityRepository<T, TKey> : IRepository<T, TKey>
-         where T : class
+         where T : class, IDomain<TKey>
     {
         public  DbContext Context { get { return _context; } }
         private readonly DbContext _context;

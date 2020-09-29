@@ -10,7 +10,7 @@ namespace Repo
          TKey Id { get; set; }
     }
     public interface IRepository<T, TKey>
-          where T : class, IDomain<string>
+          where T : class, IDomain<TKey>
     {
         T Get(TKey id);
         IQueryable<T> GetAll();
