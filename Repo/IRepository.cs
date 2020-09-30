@@ -19,6 +19,7 @@ namespace Repo
         void AddRange(IEnumerable<T> models);
         void Remove(T model);
         void RemoveRange(IEnumerable<T> models);
+        void Update(T model);
 
 
     }

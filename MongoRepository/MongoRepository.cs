@@ -17,43 +17,44 @@ namespace MongoRepository
         public IMongoCollection<T> _db;
         public MongoRepository(IMongoDatabase data) : this(data, typeof(T).Name.ToLower())
         {
+            
         }
         public MongoRepository(IMongoDatabase data, string collectionName)
         {
             _data = data;
             _db = data.GetCollection<T>(collectionName);
         }
-        public void Add(T model)
+        public virtual void Add(T model)
         {
             _db.InsertOne(model);
         }
 
-        public void AddRange(IEnumerable<T> models)
+        public virtual void AddRange(IEnumerable<T> models)
         {
             _db.InsertMany(models);
         }
 
-        public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
             return _db.AsQueryable<T>().Where(predicate);
         }
 
-        public T Get(string id)
+        public virtual T Get(string id)
         {
             return _db.Find(id).FirstOrDefault();
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return Find(m => true);
         }
 
-        public void Remove(T model)
+        public virtual void Remove(T model)
         {
             _db.DeleteOne(m => m.Id == model.Id);
         }
 
-        public void RemoveRange(IEnumerable<T> models)
+        public virtual void RemoveRange(IEnumerable<T> models)
         {
             foreach (var i in models)
             {

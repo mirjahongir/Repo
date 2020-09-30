@@ -18,47 +18,47 @@ namespace EntityRepository
         {
             _context = context;
             _db = _context.Set<T>();
-
+          
         }
-        public void Add(T model)
+        public virtual void Add(T model)
         {
             _db.Add(model);
             _context.SaveChanges();
         }
-        public IQueryable<T> Query(string sql,  params object[] par)
+        public virtual IQueryable<T> Query(string sql,  params object[] par)
         {
           
             var result=_db.FromSqlRaw(sql,par);
             return result;
         }
-        public void AddRange(IEnumerable<T> models)
+        public virtual void AddRange(IEnumerable<T> models)
         {
             _db.AddRange(models);
             _context.SaveChanges();
         }
 
-        public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
            return _db.Where(predicate);
         }
 
-        public T Get(TKey id)
+        public virtual T Get(TKey id)
         {
            return _db.Find(id);
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
            return _db.Where(m => true);
         }
 
-        public void Remove(T model)
+        public virtual void Remove(T model)
         {
             _db.Remove(model);
             _context.SaveChanges();
         }
 
-        public void RemoveRange(IEnumerable<T> models)
+        public virtual void RemoveRange(IEnumerable<T> models)
         {
             _db.RemoveRange(models);
             _context.SaveChanges();
